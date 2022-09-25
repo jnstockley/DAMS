@@ -84,6 +84,8 @@ def register_post():
 
     return redirect(url_for('auth.register'))
 
+    # TODO Send email with code, create page for user to input code, validate code and verify email, allow sign in if verified account
+
 
 def validate(field: str, regex: Pattern[str]):
     return re.fullmatch(regex, field)
