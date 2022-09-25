@@ -16,3 +16,4 @@ class User(db.Model):
     verified_email = db.Column(db.Boolean, default=False)
     verified_account = db.Column(db.Boolean, default=True)
     admin_account = db.Column(db.Boolean, default=False)
+    security_code = db.Column(db.Integer, unique=True)

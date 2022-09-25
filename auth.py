@@ -5,6 +5,7 @@ import re
 from werkzeug.security import generate_password_hash
 from .models import User
 from . import db
+from random import randrange
 
 NAME_REGEX = re.compile(r'[a-zA-Z]{3,100}')
 EMAIL_REGEX = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
@@ -62,12 +63,21 @@ def register_post():
 
     user_exists = User.query.filter_by(email=email).first()
 
+    security_code = randrange(100000, 999999)
+
+    while User.query.filter_by(security_code=security_code).first():
+        security_code = randrange(100000, 999999)
+
     if user_exists:
         flash(f'An account with {email} already exists, please sign in!')
         redirect(url_for('auth.register'))
 
+    verified_account = True
+    if account_type == 'recipient':
+        verified_account = False
+
     new_user = User(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state,
-                    country=country, zip=zip_code, email=email, account_password=generate_password_hash(password, method='sha256'), account_type=account_type)
+                    country=country, zip=zip_code, email=email, account_password=generate_password_hash(password, method='sha256'), account_type=account_type, verified_account=verified_account, security_code=security_code)
 
     db.session.add(new_user)
     db.session.commit()
