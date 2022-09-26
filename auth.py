@@ -23,6 +23,21 @@ def register():
     return render_template("register.html")
 
 
+@auth.route('/verify-account')
+def verify_account():
+    return render_template("verify-account.html")
+
+
+@auth.route('/verify-account', methods=['POST'])
+def verify_account_post():
+    email = request.form.get("email")
+    security_code = request.form.get("security-code")
+
+    account = User.query.filter_by(email=email, security_code=security_code).first()
+
+    print(account)
+
+
 @auth.route('/register', methods=['POST'])
 def register_post():
     first_name = request.form.get("first-name")
