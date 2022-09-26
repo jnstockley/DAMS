@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from . import db as connection
+import pymysql
+pymysql.install_as_MySQLdb()
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()

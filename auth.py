@@ -35,7 +35,17 @@ def verify_account_post():
 
     account = User.query.filter_by(email=email, security_code=security_code).first()
 
-    print(account)
+    if not account:
+        flash("Account not found! Email and/or security code are invalid!")
+        return redirect(url_for('auth.verify_account'))
+
+    account.verified_email = True
+    if account.account_type == "donor":
+        account.verified_account = True
+
+    db.session.commit()
+
+    return redirect(url_for('auth.verify_account'))
 
 
 @auth.route('/register', methods=['POST'])
@@ -97,7 +107,7 @@ def register_post():
     db.session.add(new_user)
     db.session.commit()
 
-    return redirect(url_for('auth.register'))
+    return redirect(url_for('auth.verify_account'))
 
     # TODO Send email with code, create page for user to input code, validate code and verify email, allow sign in if verified account
 

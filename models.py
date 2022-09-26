@@ -2,7 +2,7 @@ from . import db
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True, auto_increment=True)  # primary keys are required by SQLAlchemy
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)  # primary keys are required by SQLAlchemy
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
     street_address = db.Column(db.String(100))
