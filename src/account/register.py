@@ -117,7 +117,9 @@ def register_post():
         verified_account = False
 
     new_user = User(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state,
-                    country=country, zip=zip_code, email=email, account_password=generate_password_hash(password, method='sha256'), account_type=account_type, verified_account=verified_account, security_code=security_code)
+                    country=country, zip=zip_code, email=email,
+                    account_password=generate_password_hash(password, method='sha256'), account_type=account_type,
+                    verified_account=verified_account, security_code=security_code)
 
     email_sent = send_verification_email(new_user.email, new_user.security_code)
 
@@ -137,7 +139,7 @@ def validate(field: str, regex: Pattern[str]):
     return re.fullmatch(regex, field)
 
 
-def send_verification_email(email: str, security_code):
+def send_verification_email(email: str, security_code: int):
     import smtplib
     from email.message import EmailMessage
 
@@ -147,8 +149,7 @@ def send_verification_email(email: str, security_code):
     msg['From'] = emailCreds.username
     msg['To'] = email
     msg.set_content(f"""Hi,
-    Your security code is {security_code}
-    """)
+    Your security code is {security_code}""")
 
     # send email
     with smtplib.SMTP_SSL(emailCreds.smtp, emailCreds.port) as smtp:
@@ -156,5 +157,5 @@ def send_verification_email(email: str, security_code):
             smtp.login(emailCreds.username, emailCreds.password)
             smtp.send_message(msg)
             return True
-        except Exception:
+        except smtplib.SMTPException:
             return False
