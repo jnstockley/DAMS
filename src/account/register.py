@@ -3,7 +3,7 @@ from re import Pattern
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 import re
 from werkzeug.security import generate_password_hash
-from src.account.models import User
+from src.account.user_model import User
 from .. import db
 from .. import emailCreds
 from random import randrange
@@ -16,20 +16,20 @@ ZIP_CODE_REGEX = re.compile(r'[0-9]{5}')
 COUNTRY_REGEX = re.compile(r'[a-zA-Z]{2,3}')
 PASSWORD_REGEX = re.compile(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
 
-auth = Blueprint('auth', __name__)
+register_blueprint = Blueprint('register', __name__)
 
 
-@auth.route('/register')
+@register_blueprint.route('/register')
 def register():
     return render_template("register.html")
 
 
-@auth.route('/verify-account')
+@register_blueprint.route('/verify-account')
 def verify_account():
     return render_template("verify-account.html")
 
 
-@auth.route('/verify-account', methods=['POST'])
+@register_blueprint.route('/verify-account', methods=['POST'])
 def verify_account_post():
     email = request.form.get("email")
     security_code = request.form.get("security-code")
@@ -38,7 +38,7 @@ def verify_account_post():
 
     if not account:
         flash("Account not found! Email and/or security code are invalid!")
-        return redirect(url_for('auth.verify_account'))
+        return redirect(url_for('register.verify_account'))
 
     account.verified_email = True
     if account.account_type == "donor":
@@ -47,10 +47,10 @@ def verify_account_post():
     db.session.commit()
 
     flash("Email verified!")
-    return redirect(url_for('auth.verify_account'))
+    return redirect(url_for('register.verify_account'))
 
 
-@auth.route('/register', methods=['POST'])
+@register_blueprint.route('/register', methods=['POST'])
 def register_post():
     first_name = request.form.get("first-name")
     last_name = request.form.get("last-name")
@@ -69,34 +69,34 @@ def register_post():
 
     if not validate(first_name, NAME_REGEX):
         flash(f'{first_name} is not a valid First Name!')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
     if not validate(last_name, NAME_REGEX):
         flash(f'{last_name} is not a valid Last Name!')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
     if not validate(street_address, STREET_REGEX):
         flash(f'{street_address} is not a valid Street Address!')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
     if not validate(city, NAME_REGEX):
         flash(f'{city} is not a valid City!')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
     if not validate(state, STATE_REGEX):
         flash(f'{state} is not a valid State!')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
     if not validate(zip_code, ZIP_CODE_REGEX):
         flash(f'{zip_code} is not a valid Zip Code!')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
     if not validate(country, COUNTRY_REGEX):
         flash(f'{country} is not a valid Country!')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register'))
     if not validate(email, EMAIL_REGEX):
         flash(f'{email} is not a valid Email Address!')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
     if not password == confirm_password:
         flash("Passwords do not match")
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
     if not validate(password, PASSWORD_REGEX):
         flash("Password must be at least 8 characters and contain at least one number and letter")
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
 
     user_exists = User.query.filter_by(email=email).first()
 
@@ -107,7 +107,7 @@ def register_post():
 
     if user_exists:
         flash(f'An account with {email} already exists, please sign in!')
-        redirect(url_for('auth.register'))
+        redirect(url_for('register.register'))
 
     verified_account = True
     if account_type == 'recipient':
@@ -123,11 +123,11 @@ def register_post():
         db.session.commit()
         flash("Please check your email for your security code!")
 
-        return redirect(url_for('auth.verify_account'))
+        return redirect(url_for('register.verify_account'))
 
     else:
         flash("Error sending security code email")
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('register.register'))
 
 
 def validate(field: str, regex: Pattern[str]):

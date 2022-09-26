@@ -18,7 +18,7 @@ def create_app():
     db.init_app(app)
 
     # blueprint for auth routes in our app
-    from src.account.register import auth as auth_blueprint
+    from src.account.register import register_blueprint as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
     # blueprint for non-auth parts of app
