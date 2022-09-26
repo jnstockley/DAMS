@@ -3,9 +3,9 @@ from re import Pattern
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 import re
 from werkzeug.security import generate_password_hash
-from .models import User
-from . import db
-from . import email_login
+from src.account.models import User
+from .. import db
+from .. import emailCreds
 from random import randrange
 
 NAME_REGEX = re.compile(r'[a-zA-Z]{3,100}')
@@ -129,8 +129,6 @@ def register_post():
         flash("Error sending security code email")
         return redirect(url_for('auth.register'))
 
-    # TODO Send email with code, create page for user to input code, validate code and verify email, allow sign in if verified account
-
 
 def validate(field: str, regex: Pattern[str]):
     return re.fullmatch(regex, field)
@@ -143,16 +141,16 @@ def send_verification_email(email: str, security_code):
     # create email
     msg = EmailMessage()
     msg['Subject'] = "DAMS Security Code"
-    msg['From'] = email_login.username
+    msg['From'] = emailCreds.username
     msg['To'] = email
     msg.set_content(f"""Hi,
     Your security code is {security_code}
     """)
 
     # send email
-    with smtplib.SMTP_SSL(email_login.smtp, email_login.port) as smtp:
+    with smtplib.SMTP_SSL(emailCreds.smtp, emailCreds.port) as smtp:
         try:
-            smtp.login(email_login.username, email_login.password)
+            smtp.login(emailCreds.username, emailCreds.password)
             smtp.send_message(msg)
             return True
         except Exception:

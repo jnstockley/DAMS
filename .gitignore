@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-db.*
-email_login.*
+src/dbCreds.py
+src/emailCreds.py
