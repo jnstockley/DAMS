@@ -1,5 +1,3 @@
-from re import Pattern
-
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 import re
 from werkzeug.security import generate_password_hash
@@ -11,6 +9,7 @@ from random import randrange
 NAME_REGEX = re.compile(r'[a-zA-Z]{3,100}')
 EMAIL_REGEX = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 STREET_REGEX = re.compile(r'\w+(\s\w+){2,}')
+CITY_REGEX = re.compile(r'[a-zA-Z\ ]{3,100}')
 STATE_REGEX = re.compile(r'[a-zA-Z]{2}')
 ZIP_CODE_REGEX = re.compile(r'\d{5}')
 COUNTRY_REGEX = re.compile(r'[a-zA-Z]{2,3}')
@@ -79,7 +78,7 @@ def register_post():
     if not validate(street_address, STREET_REGEX):
         flash(f'{street_address} is not a valid Street Address!')
         return redirect(url_for(REGISTER_ACCOUNT_PAGE))
-    if not validate(city, NAME_REGEX):
+    if not validate(city, CITY_REGEX):
         flash(f'{city} is not a valid City!')
         return redirect(url_for(REGISTER_ACCOUNT_PAGE))
     if not validate(state, STATE_REGEX):
