@@ -135,7 +135,7 @@ def register_post():
         return redirect(url_for(REGISTER_ACCOUNT_PAGE))
 
 
-def validate(field: str, regex: Pattern[str]):
+def validate(field: str, regex):
     return re.fullmatch(regex, field)
 
 
