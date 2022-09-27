@@ -15,8 +15,9 @@ def createEvent():
     return render_template("create-event.html")
 
 
-
+'''
 @admin_blueprint.route('/createEvent', methods=['POST'])
 def createEvent_post():
     #query here
     return render_template("create-event.html")
+'''
