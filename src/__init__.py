@@ -12,6 +12,7 @@ def create_app():
     app = Flask(__name__, template_folder='../templates')
 
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config[
         'SQLALCHEMY_DATABASE_URI'] = f'mysql://{dbCreds.user}:{dbCreds.password}@{dbCreds.host}/{dbCreds.database}'
 

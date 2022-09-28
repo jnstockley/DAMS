@@ -9,7 +9,7 @@ from random import randrange
 NAME_REGEX = re.compile(r'[a-zA-Z]{3,100}')
 EMAIL_REGEX = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 STREET_REGEX = re.compile(r'\w+(\s\w+){2,}')
-CITY_REGEX = re.compile(r'[a-zA-Z\ ]{3,100}')
+CITY_REGEX = re.compile(r'[a-zA-Z ]{3,100}')
 STATE_REGEX = re.compile(r'[a-zA-Z]{2}')
 ZIP_CODE_REGEX = re.compile(r'\d{5}')
 COUNTRY_REGEX = re.compile(r'[a-zA-Z]{2,3}')
