@@ -81,6 +81,9 @@ def register_post():
     if not validate(city, CITY_REGEX):
         flash(f'{city} is not a valid City!')
         return redirect(url_for(REGISTER_ACCOUNT_PAGE))
+    if len(state) > 2:
+        flash('State should be in abbreviated form ex: IA')
+        return redirect(url_for(REGISTER_ACCOUNT_PAGE))
     if not validate(state, STATE_REGEX):
         flash(f'{state} is not a valid State!')
         return redirect(url_for(REGISTER_ACCOUNT_PAGE))
@@ -109,7 +112,7 @@ def register_post():
 
     if user_exists:
         flash(f'An account with {email} already exists, please sign in!')
-        redirect(url_for(REGISTER_ACCOUNT_PAGE))
+        return redirect(url_for(REGISTER_ACCOUNT_PAGE))
 
     verified_account = True
     if account_type == 'recipient':
