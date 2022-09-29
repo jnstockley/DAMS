@@ -3,14 +3,18 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 class RegisterTestCase(unittest.TestCase):
 
     def setUp(self):
+
         OPTIONS = Options()
         OPTIONS.headless = True
-        self.DRIVER: webdriver = webdriver.Chrome('../chromedriver', options=OPTIONS)
+        OPTIONS.add_argument("--no-sandbox")
+        OPTIONS.add_argument("--disable-dev-shm-usage")
+        self.DRIVER = webdriver.Chrome(ChromeDriverManager(version='105.0.5195.52').install(), options=OPTIONS)
         self.ROOT_URL = "http://127.0.0.1:5000"
 
     def test_register(self):
