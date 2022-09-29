@@ -20,7 +20,7 @@ def createEvent():
 
 
 # for getting info from boxes to send to database
-@admin_blueprint.route('/createEvent', methods=['POST'])
+@admin_blueprint.route('/create-event', methods=['POST'])
 def createEvent_post():
 
     # query here, getting all textbox info from webpage
