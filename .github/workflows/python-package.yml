@@ -45,5 +45,5 @@ jobs:
         sudo apt install google-chrome-stable
     - name: Test with pytest
       run: |
-        ls
+        flask run --app src/__init__.py
         pytest
