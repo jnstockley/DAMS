@@ -18,13 +18,12 @@ def login():
     return render_template('login.html')
 
 
-@login_blueprint.route('/verifying_user_type')
+@login_blueprint.route('/verifying_user_type', methods=['POST'])
 def verifying_user_type():
     email = request.form.get("email")
     password = request.form.get("password")
     print(email)
     print(password)
-
 
     hashedPassword = generate_password_hash(password, method='sha256')
 
