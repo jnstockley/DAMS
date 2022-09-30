@@ -22,6 +22,9 @@ def login():
 def verifying_user_type():
     email = request.form.get("email")
     password = request.form.get("password")
+    print(email)
+    print(password)
+
 
     hashedPassword = generate_password_hash(password, method='sha256')
 
@@ -29,8 +32,8 @@ def verifying_user_type():
 
     user_exists = User.query.filter_by(email=email).first()
 
-    if user_exists:
-        if account.password == hashedPassword:
+    if account:
+        if password == hashedPassword:
             if account.admin_account == 1:
                 return render_template('admin_test.py')
             else:
@@ -38,7 +41,7 @@ def verifying_user_type():
                     if account.account_type == "donor":
                         return render_template('donor.html')
                     elif account.account_type == "receipent":
-                        return render_template == ('receipent.html')
+                        return render_template('receipent.html')
                 else:
                     render_template(url_for(VERIFY_ACCOUNT_PAGE))
         else:
