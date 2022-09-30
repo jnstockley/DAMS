@@ -6,6 +6,7 @@ from re import Pattern
 import re
 admin_blueprint = Blueprint('admin', __name__)
 
+admin_createEvent_page = 'admin.createEvent'
 
 # this opens the admin main page
 @admin_blueprint.route('/admin-home')
@@ -36,5 +37,7 @@ def createEvent_post():
 
     db.session.add(newEvent)
     db.session.commit()
+    flash("Event Created!")
+    return redirect(url_for(admin_createEvent_page))
 
     #STATE_REGEX = re.compile(r'[a-zA-Z]{2}')

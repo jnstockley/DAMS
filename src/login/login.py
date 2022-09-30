@@ -32,7 +32,7 @@ def verifying_user_type():
     if user_exists:
         if account.password == hashedPassword:
             if account.admin_account == 1:
-                return render_template('admin.py')
+                return render_template('admin_test.py')
             else:
                 if account.verified_account == 1:
                     if account.account_type == "donor":
