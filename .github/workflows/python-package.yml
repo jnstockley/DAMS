@@ -50,5 +50,6 @@ jobs:
     
       run: |
         ls
-        python -m flask run
+        python -m flask run &
+        sleep 5
         python -m pytest
