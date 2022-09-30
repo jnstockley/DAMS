@@ -40,8 +40,8 @@ def verifying_user_type():
                 if account.verified_account == 1:
                     if account.account_type == "donor":
                         return render_template('donor.html')
-                    elif account.account_type == "receipent":
-                        return render_template('receipent.html')
+                    elif account.account_type == "recipient":
+                        return render_template('recipient.html')
                 else:
                     render_template(url_for(VERIFY_ACCOUNT_PAGE))
         else:
