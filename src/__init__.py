@@ -21,8 +21,10 @@ def create_app():
     # blueprint for auth routes in our app
     from src.account.register import register_blueprint as auth_blueprint
     from src.event.admin import admin_blueprint
+    from src.login.login import login_blueprint
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(admin_blueprint)
+    app.register_blueprint(login_blueprint)
 
     # blueprint for non-auth parts of app
     from .main import main as main_blueprint

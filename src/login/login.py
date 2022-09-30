@@ -13,12 +13,12 @@ VERIFY_ACCOUNT_PAGE = 'register.verify_account'
 REGISTER_ACCOUNT_PAGE = 'register.register'
 
 
-@admin_blueprint.route('/login')
+@login_blueprint.route('/login')
 def login():
     return render_template('login.html')
 
 
-@admin_blueprint.route('/verifying_user_type')
+@login_blueprint.route('/verifying_user_type')
 def verifying_user_type():
     email = request.form.get("email")
     password = request.form.get("password")
