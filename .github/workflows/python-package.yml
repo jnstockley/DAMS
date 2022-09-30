@@ -50,6 +50,5 @@ jobs:
     
       run: |
         ls
-        # EXPORT FLASK_APP=src/__init__.py
-        flask run # --app src/__init__.py
+        flask run
         pytest
