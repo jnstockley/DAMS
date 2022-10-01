@@ -121,7 +121,7 @@ def register_post():
 
     new_user = User(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state,
                     country=country, zip=zip_code, email=email,
-                    account_password=generate_password_hash(password, method='sha256'), account_type=account_type,
+                    account_password=generate_password_hash(password), account_type=account_type,
                     verified_account=verified_account, security_code=security_code)
 
     email_sent = send_verification_email(new_user.email, new_user.security_code)
