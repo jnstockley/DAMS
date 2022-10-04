@@ -6,10 +6,6 @@ login_blueprint = Blueprint('login', __name__)
 
 VERIFY_ACCOUNT_PAGE = 'register.verify_account'
 REGISTER_ACCOUNT_PAGE = 'register.register'
-VERIFY_CREDENTIALS_PAGE = 'login.verifyingCredentials'
-LOGIN_PAGE = 'login.login'
-DONOR_PAGE = 'login.donor'
-RECIPIENT_PAGE = 'login.recipient'
 
 
 @login_blueprint.route('/login')
@@ -28,7 +24,7 @@ def donor():
 
 
 @login_blueprint.route('/recipient')
-def donor():
+def recipient():
     return render_template('recipient.html')
 
 
@@ -52,12 +48,12 @@ def verifying_user_type():
         if user.verified_email:
             if user.verified_account:
                 if user.account_type == 'donor':
-                    return redirect(url_for(DONOR_PAGE))
+                    return render_template('donor.html')
                 elif user.account_type == 'recipient':
-                    return redirect(url_for(RECIPIENT_PAGE))
+                    return redirect(url_for('recipient.html'))
             else:
-                return redirect(url_for(VERIFY_CREDENTIALS_PAGE))
+                return render_template('verify-account.html')
         else:
             return redirect(url_for(VERIFY_ACCOUNT_PAGE))
 
-    return redirect(url_for(LOGIN_PAGE))
+    return render_template('login.html')
