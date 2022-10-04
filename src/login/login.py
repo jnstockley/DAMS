@@ -7,6 +7,9 @@ login_blueprint = Blueprint('login', __name__)
 VERIFY_ACCOUNT_PAGE = 'register.verify_account'
 REGISTER_ACCOUNT_PAGE = 'register.register'
 
+@login_blueprint.route('/home')
+def home():
+	return render_template('home.html')
 
 @login_blueprint.route('/login')
 def login():
@@ -33,9 +36,9 @@ def verifying_user_type():
     email = request.form.get('email')
     password = request.form.get('password')
     # remember = True if request.form.get('remember') else False
-    print(password)
+
     user = User.query.filter_by(email=email).first()
-    print(user.account_password)
+
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
     if not user or not check_password_hash(user.account_password, password):
@@ -46,13 +49,17 @@ def verifying_user_type():
         return redirect(url_for('admin.adminHome'))
     else:
         if user.verified_email:
+            print('User email is verified')
             if user.verified_account:
+                print('User account is verified')
                 if user.account_type == 'donor':
+                    print('User account type is donor.')
                     return render_template('donor.html')
                 elif user.account_type == 'recipient':
-                    return redirect(url_for('recipient.html'))
+                    print('User account type is recipient.')
+                    return render_template('recipient.html')
             else:
-                return render_template('verify-account.html')
+                return render_template('verifying_credentials.html')
         else:
             return redirect(url_for(VERIFY_ACCOUNT_PAGE))
 
