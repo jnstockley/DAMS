@@ -29,3 +29,6 @@ class AdminTestCase(unittest.TestCase):
         create_event_button = self.DRIVER.find_element(By.CLASS_NAME, "create-event")
         self.assertTrue(create_event_button)
         self.assertEqual(create_event_button.tag_name, "button")
+
+    def tearDown(self):
+        self.DRIVER.close()
