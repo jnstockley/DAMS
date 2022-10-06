@@ -15,6 +15,7 @@ ZIP_CODE_REGEX = re.compile(r'\d{5}')
 COUNTRY_REGEX = re.compile(r'[a-zA-Z]{2,3}')
 PASSWORD_REGEX = re.compile(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
 
+LOGIN_PAGE = 'login.login'
 VERIFY_ACCOUNT_PAGE = 'register.verify_account'
 REGISTER_ACCOUNT_PAGE = 'register.register'
 
@@ -49,7 +50,7 @@ def verify_account_post():
     db.session.commit()
 
     flash("Email verified!")
-    return redirect(url_for(VERIFY_ACCOUNT_PAGE))
+    return redirect(url_for(LOGIN_PAGE))
 
 
 @register_blueprint.route('/register', methods=['POST'])
@@ -120,7 +121,7 @@ def register_post():
 
     new_user = User(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state,
                     country=country, zip=zip_code, email=email,
-                    account_password=generate_password_hash(password, method='sha256'), account_type=account_type,
+                    account_password=generate_password_hash(password), account_type=account_type,
                     verified_account=verified_account, security_code=security_code)
 
     email_sent = send_verification_email(new_user.email, new_user.security_code)
