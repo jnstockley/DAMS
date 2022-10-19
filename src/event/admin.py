@@ -19,6 +19,20 @@ def adminHome():
 def createEvent():
     return render_template("create-event.html")
 
+# this opens admin modfy events page
+@admin_blueprint.route('/modify-item')
+def modifyItem():
+    return render_template("modify_item.html")
+
+# this opens admin delete events page
+@admin_blueprint.route('/delete-item')
+def deleteItem():
+    return render_template("delete_item.html")
+
+@admin_blueprint.route('/create-item')
+def createItem():
+    return render_template("create_item.html")
+
 
 # for getting info from boxes to send to database
 @admin_blueprint.route('/create-event', methods=['POST'])

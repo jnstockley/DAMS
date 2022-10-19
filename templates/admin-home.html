@@ -13,6 +13,46 @@
         {% endif %}
         {% endwith %}
         <p><a href="/create-event">Create Event</a></p>
+
+    </div>
+
+
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <p><a href="/create-item">Create Item</a></p>
+    </div>
+
+
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <p><a href="/modify-item">Modify Item</a></p>
+    </div>
+
+
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <p><a href="/delete-item">Delete Item</a></p>
     </div>
 </div>
 {% endblock %}
