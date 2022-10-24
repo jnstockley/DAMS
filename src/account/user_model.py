@@ -11,7 +11,7 @@ class User(db.Model):
     country = db.Column(db.String(3))
     zip = db.Column(db.Integer)
     email = db.Column(db.String(100), unique=True)
-    account_password = db.Column(db.String(100))
+    account_password = db.Column(db.String(255))
     account_type = db.Column(db.String(100))  # TODO Needs to be improved
     verified_email = db.Column(db.Boolean, default=False)
     verified_account = db.Column(db.Boolean, default=True)

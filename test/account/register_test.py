@@ -38,7 +38,7 @@ class RegisterTestCase(unittest.TestCase):
 
     def setUp(self):
         OPTIONS = Options()
-        OPTIONS.headless = True
+        OPTIONS.headless = False
         OPTIONS.add_argument("--no-sandbox")
         OPTIONS.add_argument("--disable-dev-shm-usage")
         self.DRIVER = webdriver.Chrome(ChromeDriverManager(version='105.0.5195.52').install(), options=OPTIONS)

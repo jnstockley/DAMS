@@ -34,7 +34,7 @@ def verify_account():
 
 @register_blueprint.route('/verify-account', methods=['POST'])
 def verify_account_post():
-    email = request.form.get("email")
+    email = request.form.get("verify-email")
     security_code = request.form.get("security-code")
 
     account = User.query.filter_by(email=email, security_code=security_code).first()
