@@ -33,6 +33,22 @@ def deleteItem():
 def createItem():
     return render_template("create_item.html")
 
+# for getting info from boxes to send to database
+@admin_blueprint.route('/create-item', methods=['POST'])
+def createItem_post():
+    return 0;
+
+
+
+
+
+
+
+
+
+
+
+
 
 # for getting info from boxes to send to database
 @admin_blueprint.route('/create-event', methods=['POST'])
