@@ -1,0 +1,12 @@
+from src.event.event_model import Events
+from src.item.item_model import Items
+
+
+def get_events():
+    events = Events.query.all()
+    return events
+
+
+def get_items():
+    items = Items.query.all()
+    return items

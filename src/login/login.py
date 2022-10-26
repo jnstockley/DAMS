@@ -64,3 +64,7 @@ def verifying_user_type():
             return redirect(url_for(VERIFY_ACCOUNT_PAGE))
 
     return render_template('login.html')
+
+@login_blueprint('/forgot_password')
+def forgot_password():
+    return render_template('verify-account')

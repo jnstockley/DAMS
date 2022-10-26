@@ -7,4 +7,23 @@
   <h1> DONOR PAGE </h1>
 </div>
 
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+    The current events that need assistance!
+  </a>
+  {% for event in eventsList %}
+    <a href="#" class="list-group-item list-group-item-action">{{event}}</a>
+  {% endfor %}
+</div>
+
+
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+    Requested items for the Event
+  </a>
+  {% for item in itemList %}
+    <a href="#" class="list-group-item list-group-item-action">{{item}}</a>
+  {% endfor %}
+</div>
+
 {% endblock %}
