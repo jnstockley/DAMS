@@ -4,20 +4,35 @@
 {% block content %}
 
 <div class="container">
-    <h1>RECIPIENT PAGE </h1>
-    <p>Select an Event</p>
-    <select id="event-selection">
-        {% for event in events %}
-            <option id="{{ event }}">{{ event }}</option>
-        {% endfor %}
-    </select>
-    </br>
-    <p>Check requested Items</p>
-    {% for item in items %}
-        <input type="checkbox" id={{ item }}/> {{ item }}
-        <br>
-    {% endfor %}
-    <button id="add-items">Add Items to Event</button>
+    <h1 class="title sign-up-title">RECIPIENT PAGE </h1>
+    <form method="POST" action="/request">
+            <!-- Event -->
+            <div class="field">
+                <div class="control">
+                    <select class="input is-large" name="event" autofocus="">
+                    <!--<input class="input is-large" type="text" name="event" placeholder="First Name" autofocus="">-->
+                        {% for event in events %}
+                            <option id={{ event }}>{{ event }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div class="field">
+                <div class="control">
+                    {% for item in items %}
+                        <div style="text-align: center;">
+                            <input name="items" class="is-large" type="checkbox" id={{ item }} value={{ item }}>
+                            <label for={{ item }}>{{ item }}</label>
+                            <br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <button class="button is-block is-info is-large is-fullwidth" name="link">Link Items</button>
+        </form>
 </div>
 
 {% endblock %}
