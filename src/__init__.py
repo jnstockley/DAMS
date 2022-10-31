@@ -22,7 +22,7 @@ def create_app():
     from src.account.register import register_blueprint as auth_blueprint
     from src.event.admin import admin_blueprint
     from src.login.login import login_blueprint
-    from src.request.request import request_blueprint
+    from src.roles.receipient import request_blueprint
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(login_blueprint)

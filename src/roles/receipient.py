@@ -1,3 +1,7 @@
+from flask import Blueprint
+
+request_blueprint = Blueprint('donor', __name__)
+
 @request_blueprint.route("/request")
 def add_request():
     return
