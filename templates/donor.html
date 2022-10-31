@@ -1,5 +1,5 @@
 {% extends 'base_merged.html' %}
-{% block title %} Home {% endblock %}
+{% block title %} Donor {% endblock %}
 
 {% block content %}
 
@@ -11,7 +11,7 @@
   <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
     The current events that need assistance!
   </a>
-  {% for event in eventsList %}
+  {% for event in events %}
     <a href="#" class="list-group-item list-group-item-action">{{event}}</a>
   {% endfor %}
 </div>
