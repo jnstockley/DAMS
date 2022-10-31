@@ -7,9 +7,11 @@ login_blueprint = Blueprint('login', __name__)
 VERIFY_ACCOUNT_PAGE = 'register.verify_account'
 REGISTER_ACCOUNT_PAGE = 'register.register'
 
+
 @login_blueprint.route('/home')
 def home():
-	return render_template('home.html')
+    return render_template('home.html')
+
 
 @login_blueprint.route('/login')
 def login():
@@ -64,6 +66,7 @@ def verifying_user_type():
             return redirect(url_for(VERIFY_ACCOUNT_PAGE))
 
     return render_template('login.html')
+
 
 @login_blueprint.route('/forgot_password')
 def forgot_password():
