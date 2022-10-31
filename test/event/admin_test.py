@@ -12,7 +12,7 @@ class AdminTestCase(unittest.TestCase):
         OPTIONS.headless = True
         OPTIONS.add_argument("--no-sandbox")
         OPTIONS.add_argument("--disable-dev-shm-usage")
-        self.DRIVER = webdriver.Chrome(ChromeDriverManager(version='105.0.5195.52').install(), options=OPTIONS)
+        self.DRIVER = webdriver.Chrome(ChromeDriverManager().install(), options=OPTIONS)
         self.ROOT_URL = "http://127.0.0.1:5000"
 
 
