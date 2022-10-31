@@ -1,10 +1,23 @@
-{% extends 'base_merged.html' %}
+{% extends 'base.html' %}
 {% block title %} Recipient {% endblock %}
 
 {% block content %}
 
 <div class="container">
-  <h1> RECIPIENT PAGE </h1>
+    <h1>RECIPIENT PAGE </h1>
+    <p>Select an Event</p>
+    <select id="event-selection">
+        {% for event in events %}
+            <option id="{{ event }}">{{ event }}</option>
+        {% endfor %}
+    </select>
+    </br>
+    <p>Check requested Items</p>
+    {% for item in items %}
+        <input type="checkbox" id={{ item }}/> {{ item }}
+        <br>
+    {% endfor %}
+    <button id="add-items">Add Items to Event</button>
 </div>
 
 {% endblock %}

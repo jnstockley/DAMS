@@ -1,10 +1,14 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
+from src.roles.roles_helper import get_events, get_items
 
 request_blueprint = Blueprint('donor', __name__)
 
+
 @request_blueprint.route("/request")
 def add_request():
-    return
+    events = get_events()
+    items = get_items()
+    return render_template('recipient.html', events=[event.event_name for event in events], items=[item.itemName for item in items])
 
 
 @request_blueprint.route("/request", methods=['POST'])
