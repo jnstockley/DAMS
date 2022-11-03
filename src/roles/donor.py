@@ -10,9 +10,8 @@ donor_blueprint = Blueprint('donor', __name__)
 def show_events():
     events = get_events()
     print(events)
-    items = get_items()
-    return render_template('donor.html', events = events, items = items)
+    return render_template('donor.html', events=events)
+
+
 def get_items():
     items = get_items()
-
-
