@@ -13,7 +13,7 @@ request_blueprint = Blueprint('donor', __name__)
 def add_request():
     events = get_events()
     items = get_items()
-    return render_template('recipient.html', events=[event.event_name for event in events], items=[item.itemName for
+    return render_template('recipient.html', events=[event for event in events], items=[item.itemName for
                                                                                                    item in items])
 
 
