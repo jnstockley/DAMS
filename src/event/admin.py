@@ -29,7 +29,22 @@ def modifyItem():
 # this modifies an item and changes it in database
 @admin_blueprint.route('/modify-item', methods=['POST'])
 def modifyItem_post():
-    return 0;
+    item_name = request.form.get("item-name")
+    item_name2 = request.form.get("item-name2")
+    category = request.form.get("category")
+
+    if db.session.query(Items).filter(Items.itemName == item_name).count():
+        if db.session.query(Items).filter(Items.itemName == item_name2).count() and item_name != item_name2:
+            flash("The item you want to change to already exists")
+            return render_template("modify_item.html")
+        else:
+            db.session.query(Items).filter(Items.itemName == item_name).update({'itemName': item_name2, 'category' : category})
+            db.session.commit()
+            flash("Item Changed")
+            return render_template("modify_item.html")
+    else:
+        flash("The item you are trying to change does not exist")
+        return render_template("modify_item.html")
 
 
 ####################################################################
@@ -42,9 +57,19 @@ def deleteItem():
 
 
 # delete item
-@admin_blueprint.route('/delete-item')
+@admin_blueprint.route('/delete-item', methods=['POST'])
 def deleteItem_post():
-    return 0;
+    item_name = request.form.get("item-name")
+
+    if db.session.query(Items).filter(Items.itemName == item_name).count():
+        Items.query.filter(Items.itemName == item_name).delete()
+        db.session.commit()
+        flash("Item Deleted!")
+        return render_template("delete_item.html")
+    else:
+        flash("Item does not exist!")
+        return render_template("delete_item.html")
+
 
 
 ###################################################################
@@ -61,12 +86,17 @@ def createItem_post():
     item_name = request.form.get("item-name")
     category = request.form.get("category")
 
-    newItem = Items(itemName=item_name, category=category)
+    if db.session.query(Items).filter(Items.itemName == item_name).count():
+        flash("Item already exits!")
+        return render_template("create_item.html")
 
-    db.session.add(newItem)
-    db.session.commit()
-    flash("Item Created!")
-    return render_template("create_item.html")
+    else:
+        newItem = Items(itemName=item_name, category=category)
+
+        db.session.add(newItem)
+        db.session.commit()
+        flash("Item Created!")
+        return render_template("create_item.html")
 
     # return 0;
 
@@ -91,12 +121,17 @@ def createEvent_post():
     zip_code = request.form.get("zipcodeNum")
     severity_level = request.form.get("severity-level")
 
-    newEvent = Events(event_name=event_name, town=town_name, state=state_name, country=country_name, zipcode=zip_code,
+    if db.session.query(Events).filter(Events.event_name == event_name).count():
+        flash("Event already exits!")
+        return render_template("create-event.html")
+    else:
+
+        newEvent = Events(event_name=event_name, town=town_name, state=state_name, country=country_name, zipcode=zip_code,
                       severity_level=severity_level)
 
-    db.session.add(newEvent)
-    db.session.commit()
-    flash("Event Created!")
-    return redirect(url_for(admin_createItem_page))
+        db.session.add(newEvent)
+        db.session.commit()
+        flash("Event Created!")
+        return render_template("create-event.html")
 
     # STATE_REGEX = re.compile(r'[a-zA-Z]{2}')
