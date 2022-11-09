@@ -1,29 +1,37 @@
-{% extends 'base_merged.html' %}
-{% block title %} Donor {% endblock %}
+{% extends 'base.html' %}
+{% block title %} Recipient {% endblock %}
 
 {% block content %}
 
 <div class="container">
-  <h1> DONOR PAGE </h1>
-</div>
+    <h1 class="title sign-up-title">DONOR PAGE</h1>
+    <form method="POST" action="/request" enctype="application/x-www-form-urlencoded">
+            <!-- Event -->
+            <div class="field">
+                <div class="control">
+                    <select class="input is-large" name="event" autofocus="">
+                        {% for event in events %}
+                            <option id={{ event }}>{{ event }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
 
-<div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-    The current events that need assistance!
-  </a>
-  {% for event in events %}
-    <a href="#" class="list-group-item list-group-item-action">{{event}}</a>
-  {% endfor %}
-</div>
+            <!-- Items -->
+            <div class="field">
+                <div class="control" name="items" style="text-align: center">
+                    {% for item in items %}
+                        <input class="is-large" type="checkbox" id={{ item }} value={{ item }}>
+                        <label for={{ item }}>{{ item }}</label>
+                        <input for="{{ item }}-quantity" name="{{ item }}" id={{ item }} type="number" value=0 style="width: 40px">
+                        <label for="{{ item }}-quantity">Quantity</label>
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
 
-
-<div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-    Requested items for the Event
-  </a>
-  {% for item in itemList %}
-    <a href="#" class="list-group-item list-group-item-action">{{item}}</a>
-  {% endfor %}
+            <button class="button is-block is-info is-large is-fullwidth" name="link">Donate Items</button>
+        </form>
 </div>
 
 {% endblock %}
