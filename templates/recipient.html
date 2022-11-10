@@ -20,7 +20,7 @@
 
             <!-- Items Table -->
             <center>
-                <div>
+                <div class="field">
                     <table>
                         <thead>
                             <tr>
@@ -38,8 +38,8 @@
                                         <td id={{ table_dict['food'][i] }}>
                                             {% if table_dict['food']|length > i %}
                                                 {{ table_dict['food'][i] }}
-                                                <label>
-                                                    <input type="number">
+                                                <label id="hello-world">
+                                                    <input name={{ table_dict['food'][i].lower() }} value=0 type="number">
                                                 </label>
                                             {% endif %}
                                         </td>
@@ -50,7 +50,7 @@
                                             {% if table_dict['utilities']|length > i %}
                                                 {{ table_dict['utilities'][i] }}
                                                 <label>
-                                                    <input type="number">
+                                                    <input name={{ table_dict['utilities'][i].lower() }} value=0 type="number">
                                                 </label>
                                             {% endif %}
                                         </td>
@@ -61,7 +61,7 @@
                                             {% if table_dict['vaccine']|length > i %}
                                                 {{ table_dict['vaccine'][i] }}
                                                 <label>
-                                                    <input type="number">
+                                                    <input name={{ table_dict['vaccine'][i].lower() }} value=0 type="number">
                                                 </label>
                                             {% endif %}
                                         </td>
@@ -72,7 +72,7 @@
                                             {% if table_dict['clothing']|length > i %}
                                                 {{ table_dict['clothing'][i] }}
                                                 <label>
-                                                    <input type="number">
+                                                    <input name={{ table_dict['clothing'][i].lower() }} value=0 type="number">
                                                 </label>
                                             {% endif %}
                                         </td>
@@ -83,7 +83,7 @@
                                             {% if table_dict['money']|length > i %}
                                                 {{ table_dict['money'][i] }}
                                                 <label>
-                                                    <input type="number">
+                                                    <input name={{ table_dict['money'][i].lower() }} value=0 type="number">
                                                 </label>
                                             {% endif %}
                                         </td>
