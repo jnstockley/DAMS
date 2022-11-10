@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from src.event.event_model import Events
 from src.item.item_model import Items
+from src.roles.roles_helper import get_items
+
 from .. import db
 from re import Pattern
 
@@ -53,13 +55,15 @@ def modifyItem_post():
 # this opens admin delete item page
 @admin_blueprint.route('/delete-item')
 def deleteItem():
-    return render_template("delete_item.html")
+    items = get_items()
+
+    return render_template("delete_item.html", items=[item.itemName for item in items])
 
 
 # delete item
 @admin_blueprint.route('/delete-item', methods=['POST'])
 def deleteItem_post():
-    item_name = request.form.get("item-name")
+    item_name = request.form.get("itemVal")
 
     if db.session.query(Items).filter(Items.itemName == item_name).count():
         Items.query.filter(Items.itemName == item_name).delete()
