@@ -10,3 +10,8 @@ def get_events():
 def get_items():
     items = Items.query.all()
     return items
+
+
+def get_item_categories():
+    categories = set([category[0] for category in Items.query.with_entities(Items.category).all()])
+    return categories

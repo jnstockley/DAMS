@@ -1,20 +1,33 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from src.roles.roles_helper import get_events, get_items
+from src.roles.roles_helper import get_events, get_items, get_item_categories
 from src.item.item_quantity_model import ItemQuantity
-from src.event.event_model import Events
-from src.item.item_model import Items
 from src.roles.request_model import Request
 from .. import db
+from collections import OrderedDict
+
 
 request_blueprint = Blueprint('donor', __name__)
 
 
 @request_blueprint.route("/request")
 def add_request():
-    events = get_events()
+    events = [event for event in get_events()]
     items = get_items()
-    return render_template('recipient.html', events=[event for event in events], items=[item.itemName for
-                                                                                                   item in items])
+    categories = get_item_categories()
+
+    data = {}
+    for category in categories:
+        items_list = []
+        for item in items:
+            if item.category == category:
+                items_list.append(item.itemName.capitalize())
+        data[category.capitalize()] = items_list
+
+    for dict_items in data:
+        for c, i in dict_items.items():
+            print(c)
+
+    return render_template('recipient.html', events=events, data=OrderedDict(sorted(data.items())), categories=categories)
 
 
 @request_blueprint.route("/request", methods=['POST'])

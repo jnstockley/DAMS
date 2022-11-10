@@ -17,8 +17,19 @@
                 </div>
             </div>
 
+            <table>
+                {% for dict_item in data %}
+                {% for category, items in dict_item.items() %}
+                <tr>
+                    <th>{{ category }}</th>
+                    <td>{{ items[0] }}</td>
+                </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+
             <!-- Items -->
-            <div class="field">
+            <!--<div class="field">
                 <div class="control" name="items" style="text-align: center">
                     {% for item in items %}
                         <input class="is-large" type="checkbox" id={{ item }} value={{ item }}>
@@ -28,7 +39,7 @@
                         <br>
                     {% endfor %}
                 </div>
-            </div>
+            </div> -->
 
             <button class="button is-block is-info is-large is-fullwidth" name="link">Link Items</button>
         </form>
