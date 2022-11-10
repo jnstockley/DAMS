@@ -3,46 +3,101 @@
 
 {% block content %}
 
-<div class="container">
-    <h1 class="title sign-up-title">Recipient Page </h1>
-    <form method="POST" action="/request" enctype="application/x-www-form-urlencoded">
+    <div class="container">
+        <h1 class="title sign-up-title">Recipient Page </h1>
+        <form method="POST" action="/request" enctype="application/x-www-form-urlencoded">
             <!-- Event -->
             <div class="field">
                 <div class="control">
                     <select class="input is-large" name="event" autofocus="">
                         {% for event in events %}
-                            <option id={{ event.eventName }}>{{ event.event_name }} - {{ event.town }}, {{ event.state }} {{ event.country }}</option>
+                            <option id={{ event.eventName }}>{{ event.event_name }}
+                                - {{ event.town }}, {{ event.state }} {{ event.country }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
 
-            <table>
-                {% for dict_item in data %}
-                {% for category, items in dict_item.items() %}
-                <tr>
-                    <th>{{ category }}</th>
-                    <td>{{ items[0] }}</td>
-                </tr>
-                    {% endfor %}
-                {% endfor %}
-            </table>
+            <!-- Items Table -->
+            <center>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for category in table_dict.keys() %}
+                                    {% if table_dict[category] != [] %}
+                                        <th>{{ category.capitalize() }}</th>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(0,max_items) %}
+                                <tr>
+                                    {% if table_dict['food'] != [] %}
+                                        <td id={{ table_dict['food'][i] }}>
+                                            {% if table_dict['food']|length > i %}
+                                                {{ table_dict['food'][i] }}
+                                                <label>
+                                                    <input type="number">
+                                                </label>
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
 
-            <!-- Items -->
-            <!--<div class="field">
-                <div class="control" name="items" style="text-align: center">
-                    {% for item in items %}
-                        <input class="is-large" type="checkbox" id={{ item }} value={{ item }}>
-                        <label for={{ item }}>{{ item }}</label>
-                        <input for="{{ item }}-quantity" name="{{ item }}" id={{ item }} type="number" value=0 style="width: 40px">
-                        <label for="{{ item }}-quantity">Quantity</label>
-                        <br>
-                    {% endfor %}
+                                    {% if table_dict['utilities'] != [] %}
+                                        <td id={{ table_dict['utilities'][i] }}>
+                                            {% if table_dict['utilities']|length > i %}
+                                                {{ table_dict['utilities'][i] }}
+                                                <label>
+                                                    <input type="number">
+                                                </label>
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+
+                                    {% if table_dict['vaccine'] != [] %}
+                                        <td id={{ table_dict['vaccine'][i] }}>
+                                            {% if table_dict['vaccine']|length > i %}
+                                                {{ table_dict['vaccine'][i] }}
+                                                <label>
+                                                    <input type="number">
+                                                </label>
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+
+                                    {% if table_dict['clothing'] != [] %}
+                                        <td id={{ table_dict['clothing'][i] }}>
+                                            {% if table_dict['clothing']|length > i %}
+                                                {{ table_dict['clothing'][i] }}
+                                                <label>
+                                                    <input type="number">
+                                                </label>
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+
+                                    {% if table_dict['money'] != [] %}
+                                        <td id={{ table_dict['money'][i] }}>
+                                            {% if table_dict['money']|length > i %}
+                                                {{ table_dict['money'][i] }}
+                                                <label>
+                                                    <input type="number">
+                                                </label>
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-            </div> -->
+            </center>
 
             <button class="button is-block is-info is-large is-fullwidth" name="link">Link Items</button>
         </form>
-</div>
+    </div>
 
 {% endblock %}

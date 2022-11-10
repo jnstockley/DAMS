@@ -1,9 +1,9 @@
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from src.roles.roles_helper import get_events, get_items, get_item_categories
 from src.item.item_quantity_model import ItemQuantity
 from src.roles.request_model import Request
 from .. import db
-from collections import OrderedDict
 
 
 request_blueprint = Blueprint('donor', __name__)
@@ -13,26 +13,29 @@ request_blueprint = Blueprint('donor', __name__)
 def add_request():
     events = [event for event in get_events()]
     items = get_items()
-    categories = get_item_categories()
+
+    all_categories = ["food", "utilities", "vaccine", "clothing", "money"]
 
     data = {}
-    for category in categories:
-        items_list = []
+    max_items = 0
+    for category in all_categories:
+        item_list = []
+        num_items = 0
         for item in items:
             if item.category == category:
-                items_list.append(item.itemName.capitalize())
-        data[category.capitalize()] = items_list
+                item_list.append(item.itemName.capitalize())
+                num_items += 1
+            if max_items < num_items:
+                max_items = num_items
+            data[category] = item_list
 
-    for dict_items in data:
-        for c, i in dict_items.items():
-            print(c)
+    print(data)
 
-    return render_template('recipient.html', events=events, data=OrderedDict(sorted(data.items())), categories=categories)
+    return render_template('recipient.html', events=events, table_dict=data, max_items=max_items)
 
 
 @request_blueprint.route("/request", methods=['POST'])
 def add_request_post():
-
     items = get_items()
 
     item_ids = {item.itemName: item.id for item in items}
@@ -50,7 +53,8 @@ def add_request_post():
 
     for item_pair in item_quantity:
         print(int(item_pair), item_quantity[item_pair])
-        db.session.add(ItemQuantity(item_id=int(item_pair), quantity=item_quantity[item_pair], request_id=request_db.id))
+        db.session.add(
+            ItemQuantity(item_id=int(item_pair), quantity=item_quantity[item_pair], request_id=request_db.id))
     db.session.commit()
 
     flash("Successfully added request, and linked items to event!")
