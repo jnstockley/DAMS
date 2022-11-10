@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    </div>
     <section class="hero is-primary is-fullheight">
 
         <div class="hero-head">
@@ -18,7 +17,21 @@
                 <div class="container">
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
-
+                            <a href="{{ url_for('main.index') }}" class="navbar-item">
+                                Home
+                            </a>
+                            <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                                Profile
+                            </a>
+                            <a href="{{ url_for('login.login') }}" class="navbar-item">
+                                Login
+                            </a>
+                            <a href="{{ url_for('register.register') }}" class="navbar-item">
+                                Sign Up
+                            </a>
+                            <a href="{{ url_for('login.login') }}" class="navbar-item">
+                                Logout
+                            </a>
                         </div>
                     </div>
                 </div>
