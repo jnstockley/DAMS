@@ -39,16 +39,12 @@ def login_post():
     else:
         if user.verified_email:
             print('User email is verified')
-            if user.verified_account:
-                print('User account is verified')
-                if user.account_type == 'donor':
-                    print('User account type is donor.')
-                    return render_template('donor.html')
-                elif user.account_type == 'recipient':
-                    print('User account type is recipient.')
-                    return render_template('recipient.html')
-            else:
-                return render_template('verifying_credentials.html')
+            if user.account_type == 'donor':
+                print('User account type is donor.')
+                return render_template('donor.html')
+            elif user.account_type == 'recipient':
+                print('User account type is recipient.')
+                return render_template('recipient.html')
         else:
             return render_template('verify-account.html')
 
