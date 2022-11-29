@@ -1,37 +1,25 @@
 {% extends 'base.html' %}
-{% block title %} Recipient {% endblock %}
+{% block title %} Donor Page {% endblock %}
 
 {% block content %}
 
-<div class="container">
-    <h1 class="title sign-up-title">DONOR PAGE</h1>
-    <form method="POST" action="/request" enctype="application/x-www-form-urlencoded">
+    <div class="container">
+        <h1 class="title sign-up-title">Donor Page </h1>
+        <form method="POST" action="/request" enctype="application/x-www-form-urlencoded">
             <!-- Event -->
             <div class="field">
                 <div class="control">
                     <select class="input is-large" name="event" autofocus="">
                         {% for event in events %}
-                            <option id={{ event }}>{{ event }}</option>
+                            <option id={{ event.eventName }}>{{ event.event_name }}
+                                - {{ event.town }}, {{ event.state }} {{ event.country }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
 
-            <!-- Items -->
-            <div class="field">
-                <div class="control" name="items" style="text-align: center">
-                    {% for item in items %}
-                        <input class="is-large" type="checkbox" id={{ item }} value={{ item }}>
-                        <label for={{ item }}>{{ item }}</label>
-                        <input for="{{ item }}-quantity" name="{{ item }}" id={{ item }} type="number" value=0 style="width: 40px">
-                        <label for="{{ item }}-quantity">Quantity</label>
-                        <br>
-                    {% endfor %}
-                </div>
-            </div>
-
             <button class="button is-block is-info is-large is-fullwidth" name="link">Donate Items</button>
         </form>
-</div>
+    </div>
 
 {% endblock %}
