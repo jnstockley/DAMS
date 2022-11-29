@@ -55,7 +55,7 @@ def login_post():
         else:
             return render_template('verify-account.html')
 
-    return render_template('login.html')
+    return email, render_template('login.html')
 
 
 @login_blueprint.route('/verifying_credentials', methods=['POST'])

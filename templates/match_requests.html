@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Match Donor and Recipients</h3>
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="/create-item">
+
+
+            <button class="button is-block is-info is-large is-fullwidth create_item">Match</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
