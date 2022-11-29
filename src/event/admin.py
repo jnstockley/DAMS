@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from src.event.event_model import Events
 from src.item.item_model import Items
-from src.roles.roles_helper import get_items
+from src.roles.roles_helper import get_items, get_requests
 
 from .. import db
 from re import Pattern
@@ -24,8 +24,16 @@ def adminHome():
 # this opens admin match items page
 @admin_blueprint.route('/match-requests')
 def matchRequests():
+    requests = get_requests()
 
-    return render_template("match_requests.html")
+    return render_template("match_requests.html", requests=requests)
+
+
+@admin_blueprint.route('/match-requests', methods=['POST'])
+def matchRequestsPost():
+
+    return render_template("match_requests.html", requests=requests)
+
 ##################################################################
 
 # this opens admin modify events page

@@ -12,10 +12,20 @@
             </div>
         {% endif %}
         {% endwith %}
-        <form method="POST" action="/create-item">
+        <form method="POST" action="/match-requests">
+
+            <!-- request -->
+            <select class="input is-large" name="requestVal" autofocus="">
+                        {% for req in requests %}
+                            <option id={{ req }}>{{ req }}</option>
+                        {% endfor %}
+            </select>
 
 
             <button class="button is-block is-info is-large is-fullwidth create_item">Match</button>
+            <p>
+                <a href="/admin-home">Admin Home</a>
+            </p>
         </form>
     </div>
 </div>
