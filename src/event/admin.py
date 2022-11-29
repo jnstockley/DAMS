@@ -25,13 +25,15 @@ def adminHome():
 # this opens admin modify events page
 @admin_blueprint.route('/modify-item')
 def modifyItem():
-    return render_template("modify_item.html")
+    items = get_items()
+
+    return render_template("modify_item.html", items=[item.itemName for item in items])
 
 
 # this modifies an item and changes it in database
 @admin_blueprint.route('/modify-item', methods=['POST'])
 def modifyItem_post():
-    item_name = request.form.get("item-name")
+    item_name = request.form.get("itemVal")
     item_name2 = request.form.get("item-name2")
     category = request.form.get("category")
 
