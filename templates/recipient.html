@@ -3,8 +3,11 @@
 
 {% block content %}
 
-    <div class="container">
-        <h1 class="title sign-up-title">Recipient Page </h1>
+    <div class="column is-4 is-offset-4">
+    <h1 class="title sign-up-title">Recipient Page </h1>
+        <div class="box">
+
+
         <form method="POST" action="/request" enctype="application/x-www-form-urlencoded">
             <!-- Event -->
             <div class="field">
@@ -36,8 +39,10 @@
                 </div>
             </div>
 
+
             <button class="button is-block is-info is-large is-fullwidth" name="link">Link Items</button>
         </form>
+        </div>
     </div>
 
 {% endblock %}
