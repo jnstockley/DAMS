@@ -5,7 +5,7 @@ from src.roles.request_model import Request
 from .. import db
 
 
-request_blueprint = Blueprint('donor', __name__)
+request_blueprint = Blueprint('recipient', __name__)
 
 
 @request_blueprint.route("/request")
