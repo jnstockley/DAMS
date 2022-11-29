@@ -23,8 +23,7 @@ def login():
 @login_blueprint.route('/donor')
 def donor():
     items = get_items()
-    events = get_events()
-    return render_template('donor.html', events=events)
+    return render_template('donor.html', items=items)
 
 
 @login_blueprint.route('/login', methods=['POST'])
