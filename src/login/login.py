@@ -51,7 +51,7 @@ def login_post():
                 return redirect(url_for('login.donor'))
             elif user.account_type == 'recipient':
                 print('User account type is recipient.')
-                return render_template('recipient.html')
+                return redirect(url_for('recipient.add_request'))
         else:
             return render_template('verify-account.html')
 
