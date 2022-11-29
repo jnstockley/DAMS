@@ -21,8 +21,9 @@ def login():
 
 
 @login_blueprint.route('/donor')
-def show_events():
+def donor():
     items = get_items()
+    events = get_events()
     return render_template('donor.html', events=events)
 
 
@@ -47,7 +48,7 @@ def login_post():
             print('User email is verified')
             if user.account_type == 'donor':
                 print('User account type is donor.')
-                return redirect(url_for('login.show_events'))
+                return redirect(url_for('login.donor'))
             elif user.account_type == 'recipient':
                 print('User account type is recipient.')
                 return render_template('recipient.html')
