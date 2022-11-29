@@ -21,6 +21,15 @@
                         {% endfor %}
             </select>
 
+            </b>
+
+            <!-- donor -->
+            <select class="input is-large" name="donorVal" autofocus="">
+                        {% for don in donors %}
+                            <option id={{ don }}>{{ don }}</option>
+                        {% endfor %}
+            </select>
+
 
             <button class="button is-block is-info is-large is-fullwidth create_item">Match</button>
             <p>

@@ -12,6 +12,9 @@ def get_requests():
     requests = Request.query.all()
     return requests
 
+def get_donors():
+    donors = Donor.query.all()
+    return donors
 
 def get_items():
     items = Items.query.all()
