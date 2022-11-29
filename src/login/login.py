@@ -20,6 +20,12 @@ def login():
     return render_template('login.html')
 
 
+@login_blueprint.route('/donor')
+def show_events():
+    items = get_items()
+    return render_template('donor.html', events=events)
+
+
 @login_blueprint.route('/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
@@ -41,7 +47,7 @@ def login_post():
             print('User email is verified')
             if user.account_type == 'donor':
                 print('User account type is donor.')
-                return render_template('donor.html')
+                return redirect(url_for('login.show_events'))
             elif user.account_type == 'recipient':
                 print('User account type is recipient.')
                 return render_template('recipient.html')
@@ -54,14 +60,6 @@ def login_post():
 @login_blueprint.route('/verifying_credentials', methods=['POST'])
 def verifyingCredentials():
     return render_template('verifying_credentials.html')
-
-
-@login_blueprint.route('/donor')
-def show_events():
-    events = get_events()
-    print(events)
-    items = get_items()
-    return render_template('donor.html', events=events, items=items)
 
 
 @login_blueprint.route('/recipient')
@@ -92,7 +90,7 @@ def verifying_user_type():
                 print('User account is verified')
                 if user.account_type == 'donor':
                     print('User account type is donor.')
-                    return render_template('donor.html')
+                    return show_events()
                 elif user.account_type == 'recipient':
                     print('User account type is recipient.')
                     return render_template('recipient.html')
@@ -100,8 +98,6 @@ def verifying_user_type():
                 return render_template('verifying_credentials.html')
         else:
             return render_template('verify-account.html')
-    login_user(user, remember=remember)
-    return render_template('login.html')
 
 
 @login_blueprint.route('/forgot_password')
