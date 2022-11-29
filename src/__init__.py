@@ -25,14 +25,18 @@ def create_app():
     from src.event.admin import admin_blueprint
     from src.login.login import login_blueprint
     from src.roles.receipient import request_blueprint
+    from src.roles.donor import donor_blueprint
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(login_blueprint)
     app.register_blueprint(request_blueprint)
+    app.register_blueprint(donor_blueprint)
+
 
     # blueprint for non-auth parts of app
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
 
     login_manager =  LoginManager()
     login_manager.login_view = 'login.login'
