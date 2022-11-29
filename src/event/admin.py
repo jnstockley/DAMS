@@ -21,6 +21,12 @@ def adminHome():
 
 
 ##################################################################
+# this opens admin match items page
+@admin_blueprint.route('/match-requests')
+def matchRequests():
+
+    return render_template("match_requests.html")
+##################################################################
 
 # this opens admin modify events page
 @admin_blueprint.route('/modify-item')

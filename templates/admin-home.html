@@ -4,6 +4,19 @@
 {% block content %}
 <div class="column is-4 is-offset-4">
     <h3 class="title">Admin Home</h3>
+
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <p><a href="/match-requests">Match Requests</a></p>
+    </div>
+
     <div class="box">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
