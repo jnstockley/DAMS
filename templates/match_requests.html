@@ -17,7 +17,16 @@
             <!-- request -->
             <select class="input is-large" name="requestVal" autofocus="">
                         {% for req in requests %}
-                            <option id={{ req }}>{{ req }}</option>
+                            {% for item in items %}
+                                {% for event in events %}
+                                    {% if event.eventID == req.eventID %}
+                                        {% if item.id == req.itemID %}
+                                        <!-- eventName - itemName - quantity -->
+                                        <option value={{ req.requestID }}>{{ event.event_name }} - {{ item.itemName }}: {{ req.quantity }}</option>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
                         {% endfor %}
             </select>
 
@@ -26,7 +35,12 @@
             <!-- donor -->
             <select class="input is-large" name="donorVal" autofocus="">
                         {% for don in donors %}
-                            <option id={{ don }}>{{ don }}</option>
+                            {% for item in items %}
+                                {% if item.id == don.itemID %}
+                                    <!-- itemName - quantity -->
+                                    <option value={{ don.donorID }}>{{ item.itemName }}: {{ don.quantity }}</option>
+                                {% endif %}
+                            {% endfor %}
                         {% endfor %}
             </select>
 

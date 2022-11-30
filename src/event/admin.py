@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from src.event.event_model import Events
 from src.item.item_model import Items
-from src.roles.roles_helper import get_items, get_requests, get_donors
+from src.roles.roles_helper import get_items, get_requests, get_donors, get_events
 
 from .. import db
 from re import Pattern
@@ -26,8 +26,11 @@ def adminHome():
 def matchRequests():
     requests = get_requests()
     donors = get_donors()
+    items = get_items()
+    events = get_events()
+    print(items[0])
 
-    return render_template("match_requests.html", requests=requests, donors=donors)
+    return render_template("match_requests.html", requests=requests, donors=donors, items=items, events=events)
 
 
 @admin_blueprint.route('/match-requests', methods=['POST'])
