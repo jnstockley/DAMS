@@ -5,6 +5,7 @@ from src.login.login import login_post
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from src.roles.roles_helper import get_items, get_donations
 from .. import db
+from ..event.match_model import Match
 
 donor_blueprint = Blueprint('donor', __name__)
 
@@ -19,17 +20,30 @@ def get_email():
 @donor_blueprint.route("/donor-check-shipments")
 def donorShipping():
     donations = get_donations()
-    return render_template("donor-check-shipments.html", donations=donations)
+
+    donors = dict()
+    for donor in donations:
+        id = db.session.query(Donor).filter(Donor.donorID == donor.donorID).first().itemID
+        donors[id] = db.session.query(Items).filter(Items.id == id).first().itemName
+
+    return render_template("donor-check-shipments.html", donations=donors)
 
 @donor_blueprint.route("/donor-check-shipments", methods=['POST'])
 def donorShipping_post():
-    donations = get_donations()
-    verified = True
-    db.session.query(Match).filter(Match.matchID == matchID).update({'verified': verified})
-    db.session.commit()
-    flash("Item Changed")
 
-    return render_template("donor-check-shipments.html", donations=donations)
+    itemID = request.form.to_dict()['donation']
+
+    donorID = db.session.query(Donor).filter(Donor.itemID == itemID).first().donorID
+
+    match = db.session.query(Match).filter(Match.donorID == donorID).first()
+
+    match.verified = True
+
+    db.session.commit()
+
+    flash("Item Verification Updated!")
+
+    return redirect('donor-check-shipments')
 
 @donor_blueprint.route("/donor-home")
 def donorHome():
