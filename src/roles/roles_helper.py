@@ -2,6 +2,7 @@ from src.event.event_model import Events
 from src.item.item_model import Items
 from src.roles.request_model import Request
 from src.roles.donor_model import Donor
+from src.event.match_model import Match
 
 def get_events():
     events = Events.query.all()
@@ -19,6 +20,10 @@ def get_donors():
 def get_items():
     items = Items.query.all()
     return items
+
+def get_donations():
+    Donations = Match.query.all()
+    return Donations
 
 
 def get_item_categories():

@@ -49,7 +49,7 @@ def login_post():
             print('User email is verified')
             if user.account_type == 'donor':
                 print('User account type is donor.')
-                return redirect(url_for('login.donor'))
+                return redirect(url_for('login.donorHome'))
             elif user.account_type == 'recipient':
                 print('User account type is recipient.')
                 return redirect(url_for('recipient.add_request'))
@@ -92,7 +92,7 @@ def verifying_user_type():
                 print('User account is verified')
                 if user.account_type == 'donor':
                     print('User account type is donor.')
-                    return show_events()
+                    return render_template('donor-home.htnl')
                 elif user.account_type == 'recipient':
                     print('User account type is recipient.')
                     return render_template('recipient.html')

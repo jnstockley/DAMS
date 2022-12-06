@@ -3,7 +3,7 @@ from src.item.item_model import Items
 from src.account.user_model import User
 from src.login.login import login_post
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from src.roles.roles_helper import get_items
+from src.roles.roles_helper import get_items, get_donations
 from .. import db
 
 donor_blueprint = Blueprint('donor', __name__)
@@ -18,7 +18,18 @@ def get_email():
 
 @donor_blueprint.route("/donor-check-shipments")
 def donorShipping():
-    return render_template("donor-check-shipments.html")
+    donations = get_donations()
+    return render_template("donor-check-shipments.html", donations=donations)
+
+@donor_blueprint.route("/donor-check-shipments", methods=['POST'])
+def donorShipping_post():
+    donations = get_donations()
+    verified = True
+    db.session.query(Match).filter(Match.matchID == matchID).update({'verified': verified})
+    db.session.commit()
+    flash("Item Changed")
+
+    return render_template("donor-check-shipments.html", donations=donations)
 
 @donor_blueprint.route("/donor-home")
 def donorHome():
@@ -39,4 +50,4 @@ def add_donor_post():
     db.session.commit()
 
     flash("Donation Request Received!")
-    return redirect(url_for("login.donor"))
+    return redirect(url_for("login.donorHome"))
