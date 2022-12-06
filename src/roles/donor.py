@@ -15,6 +15,16 @@ def get_email():
     return email
 
 
+
+@donor_blueprint.route("/donor-check-shipments")
+def donorShipping():
+    return redirect(url_for("donor-check-shipments"))
+
+@donor_blueprint.route("/donor-home")
+def donorHome():
+    return redirect(url_for("donor.donorHome"))
+
+
 @donor_blueprint.route("/donor", methods=['POST'])
 def add_donor_post():
     item = get_items()
