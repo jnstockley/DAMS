@@ -18,7 +18,7 @@ def get_email():
 
 @donor_blueprint.route("/donor-check-shipments")
 def donorShipping():
-    return redirect(url_for("donor-check-shipments"))
+    return render_template("donor-check-shipments.html")
 
 @donor_blueprint.route("/donor-home")
 def donorHome():

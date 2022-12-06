@@ -21,7 +21,9 @@ def home():
 def login():
     return render_template(login_page)
 
-
+@login_blueprint.route("/donor-home")
+def donorHome():
+    return render_template("donor-home.html")
 @login_blueprint.route('/donor')
 def donor():
     items = get_items()
