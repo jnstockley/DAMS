@@ -22,7 +22,7 @@ def donorShipping():
 
 @donor_blueprint.route("/donor-home")
 def donorHome():
-    return redirect(url_for("donor.donorHome"))
+    return render_template("donor-home.html")
 
 
 @donor_blueprint.route("/donor", methods=['POST'])
