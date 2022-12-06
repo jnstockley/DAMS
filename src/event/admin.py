@@ -2,11 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from src.event.event_model import Events
 from src.item.item_model import Items
 from src.roles.roles_helper import get_items, get_requests, get_donors, get_events
+from .match_model import Match
 
-from .. import db
+from .. import db, emailCreds
 from re import Pattern
 
 import re
+
+from ..roles.donor_model import Donor
+from ..roles.request_model import Request
 
 admin_blueprint = Blueprint('admin', __name__)
 
@@ -28,7 +32,6 @@ def matchRequests():
     donors = get_donors()
     items = get_items()
     events = get_events()
-    print(items[0])
 
     return render_template("match_requests.html", requests=requests, donors=donors, items=items, events=events)
 
@@ -36,7 +39,35 @@ def matchRequests():
 @admin_blueprint.route('/match-requests', methods=['POST'])
 def matchRequestsPost():
 
-    return render_template("match_requests.html", requests=requests, donors=donors)
+    request_data = request.form.to_dict()['requestVal']
+
+    donor_data = request.form.to_dict()['donorVal']
+
+    match = Match()
+
+    match.requestID = request_data
+
+    match.donorID = donor_data
+
+    db.session.add(match)
+
+    db.session.commit()
+
+    request_item = db.session.query(Request).filter(Request.requestID == request_data).first()
+
+    donor_item = db.session.query(Donor).filter(Donor.donorID == request_data).first()
+
+    email = donor_item.email
+
+    event_id = request_item.eventID
+
+    event = db.session.query(Events).filter(Events.eventID == event_id).first()
+
+    address = f"{event.town}, {event.state} {event.zipcode} {event.country}"
+
+    send_match_email(email, address)
+
+    return matchRequests()
 
 ##################################################################
 
@@ -159,3 +190,23 @@ def createEvent_post():
         return render_template("create-event.html")
 
     # STATE_REGEX = re.compile(r'[a-zA-Z]{2}')
+
+
+def send_match_email(email, address):
+    import smtplib
+    from email.message import EmailMessage
+    msg = EmailMessage()
+    msg['Subject'] = 'DAMS Match'
+    msg['From'] = emailCreds.username
+    msg['To'] = email
+    msg.set_content(f"""Hi,
+    Your donation has been matched, be send the requested items to:
+    {address}
+    Thank you!""")
+
+    with smtplib.SMTP_SSL(emailCreds.smtp, emailCreds.port) as smtp:
+        try:
+            smtp.login(emailCreds.username, emailCreds.password)
+            smtp.send_message(msg)
+        except smtplib.SMTPException:
+            print("Email not sent")
