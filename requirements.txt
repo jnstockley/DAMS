@@ -3,4 +3,4 @@ Flask-Login~=0.6.2
 Flask-SQLAlchemy==3.0.2
 PyMySQL~=1.0.2
 Werkzeug~=2.2.2
-cryptography~=38.0.1
+cryptography==38.0.4

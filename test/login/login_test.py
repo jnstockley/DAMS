@@ -7,11 +7,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 
-
 class RegisterTestCase(unittest.TestCase):
 
     def setUp(self):
-
         OPTIONS = Options()
         OPTIONS.headless = True
         OPTIONS.add_argument("--no-sandbox")
