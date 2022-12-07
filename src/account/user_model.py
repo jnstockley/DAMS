@@ -3,7 +3,9 @@ from flask_login import UserMixin
 
 
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)  # primary keys are required by SQLAlchemy
+    id = db.Column(
+        db.Integer, primary_key=True, autoincrement=True
+    )  # primary keys are required by SQLAlchemy
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
     street_address = db.Column(db.String(100))
@@ -13,7 +15,7 @@ class User(UserMixin, db.Model):
     zip = db.Column(db.Integer)
     email = db.Column(db.String(100), unique=True)
     account_password = db.Column(db.String(255))
-    account_type = db.Column(db.String(100))  # TODO Needs to be improved
+    account_type = db.Column(db.String(100))
     verified_email = db.Column(db.Boolean, default=False)
     verified_account = db.Column(db.Boolean, default=True)
     admin_account = db.Column(db.Boolean, default=False)
