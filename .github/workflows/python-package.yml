@@ -42,10 +42,8 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
         
-    - name: Lint with flake8
-      run: |
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Lint and update linting errors with black
+      run: black
         
     - name: Install Chrome
       run: sudo apt install google-chrome-stable
