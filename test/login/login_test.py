@@ -17,7 +17,7 @@ class RegisterTestCase(unittest.TestCase):
         self.DRIVER = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=OPTIONS)
         self.ROOT_URL = "http://127.0.0.1:5000"
 
-    def test_register(self):
+    def test_login(self):
         self.DRIVER.get(f'{self.ROOT_URL}/login')
         self.assertEqual("Login", self.DRIVER.find_element(By.CLASS_NAME, "title").text)
         self.assertTrue(self.DRIVER.find_element(By.NAME, "email"))
@@ -26,7 +26,7 @@ class RegisterTestCase(unittest.TestCase):
         self.assertTrue(LOGIN_BUTTON)
         self.assertEqual(LOGIN_BUTTON.tag_name, "button")
 
-    def test_register_post(self):
+    def test_login_post(self):
         self.DRIVER.get(f'{self.ROOT_URL}/login')
 
         LOGIN_BUTTON = self.DRIVER.find_element(By.CLASS_NAME, "button")
