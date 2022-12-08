@@ -3,7 +3,9 @@ from src.item.item_model import Items
 from src.login.login import login_post
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from src.roles.roles_helper import get_donations
+from .request_model import Request
 from .. import db
+from ..event.event_model import Events
 from ..event.match_model import Match
 
 donor_blueprint = Blueprint("donor", __name__)
@@ -50,9 +52,10 @@ def donor_shipping_post():
     return redirect("donor-check-shipments")
 
 
-@donor_blueprint.route("/donor-home")
+@donor_blueprint.route("/donor_home")
 def donor_home():
-    return render_template("donor-home.html")
+    items = db.session.query(Request).all()
+    return render_template("donor-home.html", items=items, db=db, Events=Events, Items=Items)
 
 
 @donor_blueprint.route("/donor", methods=["POST"])

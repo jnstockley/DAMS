@@ -6,6 +6,23 @@
     <h3 class="title">Donor Home</h3>
 
     <div class="box">
+        <table>
+            <tr>
+                <th>Event</th>
+                <th>Item</th>
+                <th>Quantity</th>
+            </tr>
+            {% for item in items %}
+                <tr>
+                    <td style="padding-right: 10px">{{ db.session.query(Events).filter(Events.eventID==item.eventID).first().event_name }}</td>
+                    <td style="padding-right: 10px">{{ db.session.query(Items).filter(Items.id==item.itemID).first().itemName }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="box">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="notification is-danger">
@@ -18,15 +35,7 @@
     </div>
 
     <div class="box">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="notification is-danger">
-                {{ messages[0] }}
-            </div>
-        {% endif %}
-        {% endwith %}
         <p><a href="/donor">Donate Here</a></p>
-
     </div>
 
 
