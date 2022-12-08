@@ -14,14 +14,14 @@
         {% endwith %}
         <form method="POST" action="/match-requests">
 
-            <!-- request -->
+            <!-- request --><!--
             <select class="input is-large" name="requestVal" autofocus="">
                         {% for req in requests %}
                             {% for item in items %}
                                 {% for event in events %}
                                     {% if event.eventID == req.eventID %}
                                         {% if item.id == req.itemID %}
-                                        <!-- eventName - itemName - quantity -->
+                                        --><!-- eventName - itemName - quantity --><!--
                                         <option value={{ req.requestID }}>{{ event.event_name }} - {{ item.itemName }}: {{ req.quantity }}</option>
                                         {% endif %}
                                     {% endif %}
@@ -29,7 +29,7 @@
                             {% endfor %}
                         {% endfor %}
             </select>
-
+-->
             </b>
 
             <!-- donor -->
@@ -43,7 +43,6 @@
                             {% endfor %}
                         {% endfor %}
             </select>
-
 
             <button class="button is-block is-info is-large is-fullwidth create_item">Match</button>
             <p>
